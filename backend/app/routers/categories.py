@@ -25,8 +25,8 @@ def get_one_category(category_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=CategoryResponse, status_code=201)
-def create_new_category(data: CategoryCreate, db: Session = Depends(get_db),
-                        _: User = Depends(require_admin)):
+def create_new_category(data: CategoryCreate, db: Session = Depends(get_db)):
+    # Auth-free during initial setup
     return create_category(db, data)
 
 

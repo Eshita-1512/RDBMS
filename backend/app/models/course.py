@@ -9,5 +9,6 @@ class Course(Base):
     course_title = Column(String(200), nullable=False)
     description = Column(String(500))
     duration = Column(Integer)  # total hours
+    level = Column(String(50), default="Beginner")  # Beginner / Intermediate / Advanced
     category_id = Column(Integer, ForeignKey("categories.category_id"))
     instructor_id = Column(Integer, ForeignKey("instructors.instructor_id"))

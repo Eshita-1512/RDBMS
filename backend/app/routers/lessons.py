@@ -12,14 +12,12 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[LessonResponse])
-def list_lessons(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
-                 _: User = Depends(get_current_user)):
+def list_lessons(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return get_all_lessons(db, skip=skip, limit=limit)
 
 
 @router.get("/{lesson_id}", response_model=LessonResponse)
-def get_one_lesson(lesson_id: int, db: Session = Depends(get_db),
-                   _: User = Depends(get_current_user)):
+def get_one_lesson(lesson_id: int, db: Session = Depends(get_db)):
     return get_lesson(db, lesson_id)
 
 
