@@ -10,7 +10,6 @@ def create_course(db: Session, data: CourseCreate) -> Course:
         course_title=data.course_title,
         description=data.description,
         duration=data.duration,
-        level=data.level or "Beginner",
         category_id=data.category_id,
         instructor_id=data.instructor_id,
     )

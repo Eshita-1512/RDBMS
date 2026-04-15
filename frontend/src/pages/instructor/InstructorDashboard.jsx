@@ -38,20 +38,7 @@ export default function InstructorDashboard() {
         ]);
         setCourses(cRes.data);
         setSubmissions(sRes.data);
-      } catch (e) {
-        console.error(e);
-        // Mock data
-        setCourses([
-          { course_id: 1, course_title: 'Introduction to Python', level: 'beginner' },
-          { course_id: 2, course_title: 'Advanced JavaScript', level: 'advanced' },
-          { course_id: 3, course_title: 'Data Structures & Algorithms', level: 'intermediate' },
-        ]);
-        setSubmissions([
-          { submission_id: 1, assignment_id: 1, marks: 85 },
-          { submission_id: 2, assignment_id: 2, marks: null },
-          { submission_id: 3, assignment_id: 3, marks: 92 },
-        ]);
-      }
+      } catch (e) { console.error(e); }
       finally { setLoading(false); }
     };
     fetchAll();

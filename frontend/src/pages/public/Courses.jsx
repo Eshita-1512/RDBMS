@@ -26,21 +26,7 @@ export default function Courses() {
           const enrRes = await api.get('/enrollments/me');
           setEnrolledIds(new Set(enrRes.data.map(e => e.course_id)));
         }
-      } catch (e) {
-        console.error(e);
-        // Mock data for demo
-        setCourses([
-          { course_id: 1, course_title: 'Introduction to Python', description: 'Learn Python basics for beginners', level: 'Beginner', duration: 10 },
-          { course_id: 2, course_title: 'Advanced JavaScript', description: 'Master modern JavaScript concepts', level: 'Advanced', duration: 15 },
-          { course_id: 3, course_title: 'Data Structures & Algorithms', description: 'Essential algorithms and data structures', level: 'Intermediate', duration: 20 },
-          { course_id: 4, course_title: 'Web Development with React', description: 'Build modern web applications', level: 'Intermediate', duration: 12 },
-          { course_id: 5, course_title: 'Machine Learning Fundamentals', description: 'Introduction to ML concepts', level: 'Advanced', duration: 18 },
-          { course_id: 6, course_title: 'Database Design', description: 'Learn SQL and database principles', level: 'Beginner', duration: 8 },
-        ]);
-        if (user) {
-          setEnrolledIds(new Set([1, 3])); // Mock enrolled
-        }
-      }
+      } catch (e) { console.error(e); }
       finally { setLoading(false); }
     };
     fetch();

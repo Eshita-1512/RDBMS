@@ -15,22 +15,7 @@ export default function CourseManagement() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const r = await api.get('/courses/?limit=100');
-        setCourses(r.data);
-      } catch (e) {
-        console.error(e);
-        // Mock data
-        setCourses([
-          { course_id: 1, course_title: 'Introduction to Python', description: 'Learn Python basics', level: 'beginner', duration: 10, created_at: '2024-01-01' },
-          { course_id: 2, course_title: 'Advanced JavaScript', description: 'Master JS', level: 'advanced', duration: 15, created_at: '2024-02-01' },
-          { course_id: 3, course_title: 'Data Structures & Algorithms', description: 'Essential algorithms', level: 'intermediate', duration: 20, created_at: '2024-03-01' },
-        ]);
-      }
-      finally { setLoading(false); }
-    };
-    fetch();
+    api.get('/courses/?limit=100').then(r => setCourses(r.data)).catch(() => toast('Failed to load courses','error')).finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id) => {
