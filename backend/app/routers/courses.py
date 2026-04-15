@@ -44,6 +44,6 @@ def edit_course(
 def remove_course(
     course_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(require_admin),
+    current_user: User = Depends(require_instructor),
 ):
     return delete_course(db, course_id)

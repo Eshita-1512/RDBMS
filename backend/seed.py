@@ -110,22 +110,27 @@ def seed_users():
 def seed_courses():
     from app.models.course import Course
     existing = db.query(Course).count()
-    if existing >= 5:
+    if existing >= 8:
         print("  [SKIP] Courses already seeded")
         return
 
     courses_data = [
-        {"course_id": 1, "course_title": "Python for Beginners",          "description": "Learn Python from scratch. Covers data types, loops, functions, OOP and file handling.",           "duration": 30, "category_id": 1, "instructor_id": 1},
-        {"course_id": 2, "course_title": "Data Science with Pandas",      "description": "Master data analysis using Pandas, NumPy and Matplotlib with real-world datasets.",               "duration": 40, "category_id": 2, "instructor_id": 1},
-        {"course_id": 3, "course_title": "Full Stack Web Development",    "description": "Build complete web apps with React frontend and FastAPI backend. Deploy to cloud.",               "duration": 60, "category_id": 3, "instructor_id": 2},
-        {"course_id": 4, "course_title": "PostgreSQL Mastery",            "description": "Deep dive into relational databases — queries, indexes, transactions, stored procedures.",       "duration": 25, "category_id": 4, "instructor_id": 2},
-        {"course_id": 5, "course_title": "Cloud & DevOps Fundamentals",  "description": "AWS core services, Docker, CI/CD pipelines and Infrastructure as Code with Terraform.",         "duration": 45, "category_id": 5, "instructor_id": 3},
+        {"course_id": 1, "course_title": "Python for Beginners",         "description": "Learn Python from scratch. Covers data types, loops, functions, OOP and file handling.",           "duration": 30, "level": "Beginner",     "category_id": 1, "instructor_id": 1},
+        {"course_id": 2, "course_title": "Data Science with Pandas",     "description": "Master data analysis using Pandas, NumPy and Matplotlib with real-world datasets.",               "duration": 40, "level": "Intermediate", "category_id": 2, "instructor_id": 1},
+        {"course_id": 3, "course_title": "Full Stack Web Development",   "description": "Build complete web apps with React frontend and FastAPI backend. Deploy to cloud.",               "duration": 60, "level": "Advanced",     "category_id": 3, "instructor_id": 2},
+        {"course_id": 4, "course_title": "PostgreSQL Mastery",           "description": "Deep dive into relational databases — queries, indexes, transactions, stored procedures.",       "duration": 25, "level": "Intermediate", "category_id": 4, "instructor_id": 2},
+        {"course_id": 5, "course_title": "Cloud & DevOps Fundamentals", "description": "AWS core services, Docker, CI/CD pipelines and Infrastructure as Code with Terraform.",         "duration": 45, "level": "Intermediate", "category_id": 5, "instructor_id": 3},
+        {"course_id": 6, "course_title": "Machine Learning A-Z",        "description": "End-to-end ML: regression, classification, clustering, neural nets and model deployment.",       "duration": 55, "level": "Advanced",     "category_id": 2, "instructor_id": 1},
+        {"course_id": 7, "course_title": "React.js Zero to Hero",       "description": "Learn React from components to advanced state management with Redux and React Query.",           "duration": 35, "level": "Beginner",     "category_id": 3, "instructor_id": 2},
+        {"course_id": 8, "course_title": "SQL for Data Analysts",       "description": "Write complex SQL queries, CTEs, window functions and build BI dashboards in PostgreSQL.",      "duration": 20, "level": "Beginner",     "category_id": 4, "instructor_id": 3},
+        {"course_id": 9, "course_title": "System Design Interviews",    "description": "Design scalable distributed systems: load balancing, caching, databases, microservices.",       "duration": 50, "level": "Advanced",     "category_id": 1, "instructor_id": 1},
+        {"course_id": 10,"course_title": "Docker & Kubernetes",         "description": "Containerize apps, orchestrate with Kubernetes, manage clusters and deploy to production.",     "duration": 38, "level": "Intermediate", "category_id": 5, "instructor_id": 3},
     ]
     for c in courses_data:
         if not db.query(Course).filter(Course.course_id == c["course_id"]).first():
             db.add(Course(**c))
     db.commit()
-    print("  [OK] Courses seeded: 5 courses")
+    print(f"  [OK] Courses seeded: {len(courses_data)} courses with levels")
 
 
 def seed_lessons():
@@ -208,13 +213,17 @@ def seed_enrollments():
 def seed_submissions():
     from app.models.submission import Submission
     existing = db.query(Submission).count()
-    if existing >= 2:
+    if existing >= 4:
         print("  [SKIP] Submissions already seeded")
         return
 
     submissions_data = [
         {"assignment_id": 1, "user_id": 4, "marks": 88},
+        {"assignment_id": 1, "user_id": 5, "marks": 76},
+        {"assignment_id": 2, "user_id": 4, "marks": None},   # ungraded
         {"assignment_id": 3, "user_id": 5, "marks": 92},
+        {"assignment_id": 4, "user_id": 4, "marks": 45},
+        {"assignment_id": 5, "user_id": 5, "marks": None},   # ungraded
     ]
     for s in submissions_data:
         if not db.query(Submission).filter(
@@ -223,7 +232,7 @@ def seed_submissions():
         ).first():
             db.add(Submission(**s))
     db.commit()
-    print("  [OK] Submissions seeded: 2 graded submissions")
+    print("  [OK] Submissions seeded: 6 (4 graded, 2 ungraded)")
 
 
 def seed_certificates():
